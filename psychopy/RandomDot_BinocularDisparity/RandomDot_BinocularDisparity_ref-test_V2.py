@@ -54,6 +54,11 @@ fixation_point = visual.Circle(
 )
 fixation_point.draw(win)
 
+# ========================================================================
+# 実験条件
+# ========================================================================
+N_repeat = 5    # 刺激1条件あたりの呈示回数
+
 
 # ========================================================================
 # 刺激のドット配列を定義
@@ -67,58 +72,107 @@ fixation_point.draw(win)
 """
 
 patch_range = 6         # パッチの描画範囲 [deg]
-patchPos = 0            # 相関ありドットパッチの中心位置
-corr_dots_radius = 3
+corr_dots_radius = 1    # 相関ありドットパッチの半径
 Ndots = 4000            # ドットの生成数
 patch_centerPos = 7     # パッチの位置 [deg]
-disparity = -0.15           # 視差の大きさ [deg]
-# disparity = 0.3           # 視差の大きさ [deg]
 elemSize = 0.14         # ドットサイズ [deg]
+
+disparity_ref = 0       # 視差の大きさ [deg]
+disparity_test = 0.3    # 視差の大きさ [deg]
+disparity_arr = np.linspace(-0.3, 0.3, 13)  # 刺激の視差リスト
+RefTest_adjPosArr = [np.array([-1, 1]), np.array([1, -1])]  # 参照刺激とtest刺激が左右のどちらに出るかのリスト
 
 pos_dots_x = np.random.uniform(-patch_range, patch_range, Ndots)      # ドット生成
 pos_dots_y = np.random.uniform(-patch_range, patch_range, Ndots)      # ドット生成
 pos_dots = np.column_stack((pos_dots_x, pos_dots_y))                # Nx2 arrayの生成
 
-select_range = (np.sqrt(np.sum(pos_dots**2, axis=1)) < corr_dots_radius)
+# ===============================================================================================
+# ドット生成
+# ===============================================================================================
+RefTest_adjPos = np.array([2, 0])   # 参照刺激とテスト刺激の位置調整用
+select_range_Ref = np.sqrt(np.sum((pos_dots + RefTest_adjPos)**2, axis=1)) < corr_dots_radius
+select_range_Test = np.sqrt(np.sum((pos_dots - RefTest_adjPos)**2, axis=1)) < corr_dots_radius
 
-corr_dots_Leye = pos_dots[select_range]
-corr_dots_Leye[:, 0] -= patch_centerPos - disparity
-corr_dots_Reye = pos_dots[select_range]
-corr_dots_Reye[:, 0] += patch_centerPos
+# ===============================================================================================
+# 参照刺激
+# ===============================================================================================
+corr_dots_Leye_ref = pos_dots[select_range_Ref]
+corr_dots_Leye_ref[:, 0] -= patch_centerPos - disparity_ref
+corr_dots_Reye_ref = pos_dots[select_range_Ref]
+corr_dots_Reye_ref[:, 0] += patch_centerPos
 
-corrStim_Leye = visual.ElementArrayStim(
+corrStim_Leye_ref = visual.ElementArrayStim(
     win,
     units       = 'deg',                            # 単位 (視角) [degree]
     fieldPos    = (0, 0),                           # パッチの位置
-    nElements   = len(pos_dots[select_range]),      # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
-    xys         = corr_dots_Leye,                   # ドット位置
+    nElements   = len(pos_dots[select_range_Ref]),      # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
+    xys         = corr_dots_Leye_ref,                   # ドット位置
     sizes       = elemSize,                         # ドットサイズ
     colors      = [black, white],                   # ドットの色
     colorSpace  = COLOR_SPACE,                      # カラースペース
     elementTex  = None,                             # ドットにかけるエフェクト
     elementMask = 'circle'                          # ドットの形
 )
-corrStim_Leye.draw(win)
+corrStim_Leye_ref.draw(win)
 
-corrStim_Reye = visual.ElementArrayStim(
+corrStim_Reye_ref = visual.ElementArrayStim(
     win,
     units       = 'deg',                        # 単位 (視角) [degree]
     fieldPos    = (0, 0),                       # パッチの位置
-    nElements   = len(pos_dots[select_range]),  # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
-    xys         = corr_dots_Reye,               # ドット位置
+    nElements   = len(pos_dots[select_range_Ref]),  # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
+    xys         = corr_dots_Reye_ref,               # ドット位置
     sizes       = elemSize,                     # ドットサイズ
     colors      = [black, white],               # ドットの色
     colorSpace  = COLOR_SPACE,                  # カラースペース
     elementTex  = None,                         # ドットにかけるエフェクト
     elementMask = 'circle'                      # ドットの形
 )
-corrStim_Reye.draw(win)
+corrStim_Reye_ref.draw(win)
+
+# ===============================================================================================
+# テスト刺激
+# ===============================================================================================
+corr_dots_Leye_test = pos_dots[select_range_Test]
+corr_dots_Leye_test[:, 0] -= patch_centerPos - disparity_test
+corr_dots_Reye_test = pos_dots[select_range_Test]
+corr_dots_Reye_test[:, 0] += patch_centerPos
+
+corrStim_Leye_test = visual.ElementArrayStim(
+    win,
+    units       = 'deg',                            # 単位 (視角) [degree]
+    fieldPos    = (0, 0),                           # パッチの位置
+    nElements   = len(pos_dots[select_range_Test]),      # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
+    xys         = corr_dots_Leye_test,                   # ドット位置
+    sizes       = elemSize,                         # ドットサイズ
+    colors      = [black, white],                   # ドットの色
+    colorSpace  = COLOR_SPACE,                      # カラースペース
+    elementTex  = None,                             # ドットにかけるエフェクト
+    elementMask = 'circle'                          # ドットの形
+)
+corrStim_Leye_test.draw(win)
+
+corrStim_Reye_test = visual.ElementArrayStim(
+    win,
+    units       = 'deg',                        # 単位 (視角) [degree]
+    fieldPos    = (0, 0),                       # パッチの位置
+    nElements   = len(pos_dots[select_range_Test]),  # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
+    xys         = corr_dots_Reye_test,               # ドット位置
+    sizes       = elemSize,                     # ドットサイズ
+    colors      = [black, white],               # ドットの色
+    colorSpace  = COLOR_SPACE,                  # カラースペース
+    elementTex  = None,                         # ドットにかけるエフェクト
+    elementMask = 'circle'                      # ドットの形
+)
+corrStim_Reye_test.draw(win)
 
 
-uncorr_dots_Leye = pos_dots[~select_range]
+# ============================================================================
+# 周辺のドット
+# ============================================================================
+uncorr_dots_Leye = pos_dots[~(select_range_Test | select_range_Ref)]
 uncorr_dots_Leye[:, 0] -= patch_centerPos
 # uncorr_dots_Leye -= np.random.uniform(-0.15, 0.15, (len(uncorr_dots_Leye), 2))
-uncorr_dots_Reye = pos_dots[~select_range]
+uncorr_dots_Reye = pos_dots[~(select_range_Test | select_range_Ref)]
 uncorr_dots_Reye[:, 0] += patch_centerPos
 # uncorr_dots_Reye += np.random.uniform(-0.15, 0.15, (len(uncorr_dots_Reye), 2))
 
@@ -126,7 +180,7 @@ uncorrStim_Leye = visual.ElementArrayStim(
     win,
     units       = 'deg',                        # 単位 (視角) [degree]
     fieldPos    = (0, 0),                       # パッチの位置
-    nElements   = len(pos_dots[~select_range]), # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
+    nElements   = len(pos_dots[~(select_range_Test | select_range_Ref)]), # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
     xys         = uncorr_dots_Leye,             # ドット位置
     sizes       = elemSize,                     # ドットサイズ
     colors      = [black, white],               # ドットの色
@@ -140,7 +194,7 @@ uncorrStim_Reye = visual.ElementArrayStim(
     win,
     units       = 'deg',                        # 単位 (視角) [degree]
     fieldPos    = (0, 0),                       # パッチの位置
-    nElements   = len(pos_dots[~select_range]), # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
+    nElements   = len(pos_dots[~(select_range_Test | select_range_Ref)]), # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
     xys         = uncorr_dots_Reye,             # ドット位置
     sizes       = elemSize,                     # ドットサイズ
     colors      = [black, white],               # ドットの色
