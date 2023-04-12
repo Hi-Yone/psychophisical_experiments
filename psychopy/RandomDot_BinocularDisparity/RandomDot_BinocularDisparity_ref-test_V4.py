@@ -34,7 +34,7 @@ win = visual.Window(
     color = gray,                     # 背景色
     fullscr = True,                   # フルスクリーン化
     monitor = moni,                   # モニタ情報を設定
-    screen = 0,                       # スクリーンを選択 (モニタが複数ある場合に，どのモニタに表示するか)
+    screen = 1,                       # スクリーンを選択 (モニタが複数ある場合に，どのモニタに表示するか)
     allowStencil = True               # Aperture刺激の呈示に用いる (OpenGL)
 )
 
@@ -53,10 +53,11 @@ fixation_point = visual.Circle(
     pos = pos_fp
 )
 fixation_point.draw(win)
+
 Ndots = 4000            # ドットの生成数
 # 刺激描画クラス
 elemSize = 0.14         # ドットサイズ [deg]
-corrStim_Leye_ref = visual.ElementArrayStim(
+Stim_Leye = visual.ElementArrayStim(
     win,
     nElements = Ndots,
     units       = 'deg',                            # 単位 (視角) [degree]
@@ -68,31 +69,7 @@ corrStim_Leye_ref = visual.ElementArrayStim(
     elementMask = 'circle'                          # ドットの形
 )
 
-corrStim_Reye_ref = visual.ElementArrayStim(
-    win,
-    nElements = Ndots,
-    units       = 'deg',                        # 単位 (視角) [degree]
-    fieldPos    = (0, 0),                       # パッチの位置
-    sizes       = elemSize,                     # ドットサイズ
-    colors      = [black, white],               # ドットの色
-    colorSpace  = COLOR_SPACE,                  # カラースペース
-    elementTex  = None,                         # ドットにかけるエフェクト
-    elementMask = 'circle'                      # ドットの形
-)
-
-corrStim_Leye_test = visual.ElementArrayStim(
-    win,
-    nElements = Ndots,
-    units       = 'deg',                            # 単位 (視角) [degree]
-    fieldPos    = (0, 0),                           # パッチの位置
-    sizes       = elemSize,                         # ドットサイズ
-    colors      = [black, white],                   # ドットの色
-    colorSpace  = COLOR_SPACE,                      # カラースペース
-    elementTex  = None,                             # ドットにかけるエフェクト
-    elementMask = 'circle'                          # ドットの形
-)
-
-corrStim_Reye_test = visual.ElementArrayStim(
+Stim_Reye = visual.ElementArrayStim(
     win,
     nElements = Ndots,
     units       = 'deg',                        # 単位 (視角) [degree]
@@ -136,67 +113,26 @@ select_range_Test = np.sqrt(np.sum((pos_dots - RefTest_adjPos)**2, axis=1)) < co
 # ===============================================================================================
 # 参照刺激
 # ===============================================================================================
-corr_dots_Leye_ref = pos_dots[select_range_Ref]
-corr_dots_Leye_ref[:, 0] -= patch_centerPos - disparity_ref
-corr_dots_Reye_ref = pos_dots[select_range_Ref]
-corr_dots_Reye_ref[:, 0] += patch_centerPos
-corrStim_Leye_ref.setXYs(corr_dots_Leye_ref)               # ドット位置
-corrStim_Reye_ref.setXYs(corr_dots_Reye_ref)               # ドット位置
-print(len(pos_dots[select_range_Ref]))
+dots_Leye = np.copy(pos_dots)
+dots_Leye[select_range_Ref, 0] -= patch_centerPos - disparity_ref       # correlated dots
+dots_Leye[select_range_Test, 0] -= patch_centerPos - disparity_test     # correlated dots
+jitter_pos = np.random.uniform(-0.3, 0.3, (len(dots_Leye[~(select_range_Ref | select_range_Test)])))
+dots_Leye[~(select_range_Ref | select_range_Test), 0] -= patch_centerPos + jitter_pos       # uncorrelated dots
+
+dots_Reye = np.copy(pos_dots)
+dots_Reye[select_range_Ref, 0] += patch_centerPos + disparity_ref     # correlated dots
+dots_Reye[select_range_Test, 0] += patch_centerPos + disparity_test     # correlated dots
+jitter_pos = np.random.uniform(-0.3, 0.3, (len(dots_Reye[~(select_range_Ref | select_range_Test)])))
+dots_Reye[~(select_range_Ref | select_range_Test), 0] += patch_centerPos                    # uncorrelated dots 
+
+Stim_Leye.setXYs(dots_Leye)               # ドット位置
+Stim_Reye.setXYs(dots_Reye)               # ドット位置
 
 # ===============================================================================================
-# テスト刺激
+# 刺激描画
 # ===============================================================================================
-corr_dots_Leye_test = pos_dots[select_range_Test]
-corr_dots_Leye_test[:, 0] -= patch_centerPos - disparity_test
-corr_dots_Reye_test = pos_dots[select_range_Test]
-corr_dots_Reye_test[:, 0] += patch_centerPos
-
-corrStim_Leye_test.setXYs(corr_dots_Leye_test)               # ドット位置
-corrStim_Reye_test.setXYs(corr_dots_Reye_test)               # ドット位置
-
-corrStim_Leye_ref.draw(win)
-corrStim_Reye_ref.draw(win)
-corrStim_Leye_test.draw(win)
-corrStim_Reye_test.draw(win)
-
-# ============================================================================
-# 周辺のドット
-# ============================================================================
-uncorr_dots_Leye = pos_dots[~(select_range_Test | select_range_Ref)]
-uncorr_dots_Leye[:, 0] -= patch_centerPos
-# uncorr_dots_Leye -= np.random.uniform(-0.15, 0.15, (len(uncorr_dots_Leye), 2))
-uncorr_dots_Reye = pos_dots[~(select_range_Test | select_range_Ref)]
-uncorr_dots_Reye[:, 0] += patch_centerPos
-# uncorr_dots_Reye += np.random.uniform(-0.15, 0.15, (len(uncorr_dots_Reye), 2))
-
-uncorrStim_Leye = visual.ElementArrayStim(
-    win,
-    units       = 'deg',                        # 単位 (視角) [degree]
-    fieldPos    = (0, 0),                       # パッチの位置
-    nElements   = len(pos_dots[~(select_range_Test | select_range_Ref)]), # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
-    xys         = uncorr_dots_Leye,             # ドット位置
-    sizes       = elemSize,                     # ドットサイズ
-    colors      = [black, white],               # ドットの色
-    colorSpace  = COLOR_SPACE,                  # カラースペース
-    elementTex  = None,                         # ドットにかけるエフェクト
-    elementMask = 'circle'                      # ドットの形
-)
-# uncorrStim_Leye.draw(win)
-
-uncorrStim_Reye = visual.ElementArrayStim(
-    win,
-    units       = 'deg',                        # 単位 (視角) [degree]
-    fieldPos    = (0, 0),                       # パッチの位置
-    nElements   = len(pos_dots[~(select_range_Test | select_range_Ref)]), # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
-    xys         = uncorr_dots_Reye,             # ドット位置
-    sizes       = elemSize,                     # ドットサイズ
-    colors      = [black, white],               # ドットの色
-    colorSpace  = COLOR_SPACE,                  # カラースペース
-    elementTex  = None,                         # ドットにかけるエフェクト
-    elementMask = 'circle'                      # ドットの形
-)
-# uncorrStim_Reye.draw(win)
+Stim_Leye.draw(win)
+Stim_Reye.draw(win)
 
 win.flip()  # 画面書き換え
 

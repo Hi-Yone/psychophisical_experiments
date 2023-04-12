@@ -139,7 +139,7 @@ corr_dots_Reye_test[:, 0] += patch_centerPos
 
 corrStim_Leye_test = visual.ElementArrayStim(
     win,
-    units       = 'deg',                    　        # 単位 (視角) [degree]
+    units       = 'deg',                            # 単位 (視角) [degree]
     fieldPos    = (0, 0),                           # パッチの位置
     nElements   = len(pos_dots[select_range_Test]),      # ドット数 (ドット数は変更できないので、毎回同じドット数が表示される)
     xys         = corr_dots_Leye_test,                   # ドット位置
@@ -188,7 +188,7 @@ uncorrStim_Leye = visual.ElementArrayStim(
     elementTex  = None,                         # ドットにかけるエフェクト
     elementMask = 'circle'                      # ドットの形
 )
-# uncorrStim_Leye.draw(win)
+uncorrStim_Leye.draw(win)
 
 uncorrStim_Reye = visual.ElementArrayStim(
     win,

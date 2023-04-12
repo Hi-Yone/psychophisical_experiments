@@ -111,7 +111,7 @@ trialClock = core.Clock()
 stimulator = Stimulator(
     moni_size_pix = SIZE_PIX,
     moni_size_cm = SIZE_CM,
-    frame_rate = round(expInfo['frameRate']),
+    frame_rate = 45,
     eye_ofst_cm = 57,
     vmin = VMIN, vmax = VMAX);
 

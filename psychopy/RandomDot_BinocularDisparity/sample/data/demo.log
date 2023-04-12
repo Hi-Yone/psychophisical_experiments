@@ -1,0 +1,97 @@
+6.0316 	WARNING 	Import Error: No module named 'psychtoolbox'. Using event module for keyboard component.
+8.2188 	WARNING 	Requested an unavailable screen number - using first available.
+8.2206 	WARNING 	User requested fullscreen with size [1920 1080], but screen is actually [1440, 900]. Using actual size
+9.8773 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+9.8822 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([0.50196078, 0.50196078, 0.50196078]), colorSpace='rgb1', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7ff0148d6be0>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7ff0149d1b80>, multiSample=False, name='window1', numSamples=2, pos=[360.0, 225.0], screen=1, size=array([2880, 1800]), stencilBits=0, stereo=False, units='pix', useFBO=True, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+9.8826 	EXP 	window1: mouseVisible = True
+9.8827 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+9.8828 	EXP 	window1: recordFrameIntervals = False
+9.9714 	EXP 	window1: recordFrameIntervals = True
+10.1986 	WARNING 	t of last frame was 21.19ms (=1/47)
+10.3132 	WARNING 	t of last frame was 25.68ms (=1/38)
+10.8954 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+11.7995 	EXP 	window1: mouseVisible = True
+3.9252 	WARNING 	Import Error: No module named 'psychtoolbox'. Using event module for keyboard component.
+12.3228 	WARNING 	Requested an unavailable screen number - using first available.
+12.3235 	WARNING 	User requested fullscreen with size [1920 1080], but screen is actually [1440, 900]. Using actual size
+14.1676 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+14.1686 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([0.50196078, 0.50196078, 0.50196078]), colorSpace='rgb1', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x7fd6d69d6c10>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x7fd6d6a269d0>, multiSample=False, name='window1', numSamples=2, pos=[360.0, 225.0], screen=1, size=array([2880, 1800]), stencilBits=0, stereo=False, units='pix', useFBO=True, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+14.1689 	EXP 	window1: mouseVisible = True
+14.1690 	EXP 	window1: Attempting to measure frame rate of screen (1) ...
+14.1690 	EXP 	window1: recordFrameIntervals = False
+14.2509 	EXP 	window1: recordFrameIntervals = True
+14.3647 	WARNING 	t of last frame was 25.48ms (=1/39)
+14.4116 	WARNING 	t of last frame was 21.96ms (=1/45)
+14.4358 	WARNING 	t of last frame was 24.20ms (=1/41)
+14.4562 	WARNING 	t of last frame was 20.43ms (=1/48)
+14.8851 	WARNING 	Multiple dropped frames have occurred - I'll stop bothering you about them!
+15.2500 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+15.5037 	EXP 	Created fixation_point = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb1', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=ndarray(...), interpolate=False, mask=None, maskParams=None, name='fixation_point', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([14., 14.]), texRes=128, units='pix', win=Window(...))
+15.5057 	EXP 	Created stim = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, anchor=('center', 'center'), autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb1', contrast=1.0, depth=0, flipHoriz=False, flipVert=True, image=None, interpolate=False, mask=None, maskParams=None, name='stim', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([179., 179.]), texRes=128, units='pix', win=Window(...))
+15.5783 	EXP 	Created resp_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb1', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='', fontFiles=[], height=100.0, italic=False, languageStyle='LTR', name='resp_text', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='respond', units='pix', win=Window(...), wrapWidth=500)
+15.5855 	EXP 	Created sequence: random, trialTypes=1, nReps=240, seed=None
+15.5867 	EXP 	New trial (rep=0, index=0): None
+17.3376 	DATA 	Mouse: wheel shift=(0,0), pos=(556,321)
+17.3381 	DATA 	Mouse: wheel shift=(0,0), pos=(556,321)
+17.3385 	DATA 	Mouse: wheel shift=(0,0), pos=(556,321)
+17.3392 	DATA 	Mouse: wheel shift=(0,0), pos=(556,321)
+17.3397 	DATA 	Mouse: wheel shift=(0,0), pos=(556,321)
+17.3407 	DATA 	Mouse: wheel shift=(0,0), pos=(556,321)
+17.3416 	DATA 	Mouse: wheel shift=(0,0), pos=(556,322)
+17.3425 	DATA 	Mouse: wheel shift=(0,0), pos=(557,322)
+17.3434 	DATA 	Mouse: wheel shift=(0,0), pos=(557,322)
+17.3443 	DATA 	Mouse: wheel shift=(0,0), pos=(558,323)
+17.3450 	DATA 	Mouse: wheel shift=(0,0), pos=(558,323)
+17.3457 	DATA 	Mouse: wheel shift=(0,0), pos=(559,323)
+17.3462 	DATA 	Mouse: wheel shift=(0,0), pos=(560,323)
+17.3466 	DATA 	Mouse: wheel shift=(0,0), pos=(562,323)
+17.3471 	DATA 	Mouse: wheel shift=(0,0), pos=(563,323)
+17.3476 	DATA 	Mouse: wheel shift=(0,0), pos=(565,323)
+17.3482 	DATA 	Mouse: wheel shift=(0,0), pos=(569,323)
+17.3487 	DATA 	Mouse: wheel shift=(0,0), pos=(573,323)
+17.3491 	DATA 	Mouse: wheel shift=(0,0), pos=(583,323)
+17.3496 	DATA 	Mouse: wheel shift=(0,0), pos=(587,323)
+17.3501 	DATA 	Mouse: wheel shift=(0,0), pos=(591,323)
+17.3708 	EXP 	fixation_point: autoDraw = True
+17.8211 	EXP 	stim: autoDraw = True
+17.8211 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8356 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8500 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8576 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8670 	EXP 	fixation_point: autoDraw = False
+17.8670 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8737 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8832 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.8900 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9000 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9067 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9169 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9335 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9410 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9506 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9586 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9685 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9838 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9915 	EXP 	stim: image = <class 'numpy.ndarray'>
+17.9997 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0090 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0190 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0333 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0399 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0499 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0566 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0662 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.0733 	EXP 	stim: image = <class 'numpy.ndarray'>
+18.6297 	EXP 	window1: mouseVisible = True
